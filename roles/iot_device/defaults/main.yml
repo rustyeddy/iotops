@@ -8,7 +8,9 @@ iot_device_type: sensor
 iot_device_enabled: true
 
 # Installation paths
-# These can be overridden; defaults are provided if parent paths are not defined
+# These can be overridden; defaults are provided if parent paths are not defined.
+# When using group_vars, define iot_base_path, iot_config_path, and iot_log_path
+# for consistent parent paths across all roles, or override these entirely.
 iot_device_install_path: "{{ iot_base_path | default('/opt/iot') }}/device"
 iot_device_config_path: "{{ iot_config_path | default('/etc/iot') }}/device"
 iot_device_log_path: "{{ iot_log_path | default('/var/log/iot') }}/device"
