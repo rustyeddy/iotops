@@ -24,3 +24,5 @@ iot_device_data_format: json
 # Service configuration
 iot_device_service_enabled: true
 iot_device_service_state: started
+iot_device_service_user: iotdevice
+iot_device_service_group: iotdevice

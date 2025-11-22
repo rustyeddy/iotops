@@ -7,12 +7,34 @@
   tags:
     - always
 
+- name: Create IoT device service group
+  group:
+    name: "{{ iot_device_service_group }}"
+    state: present
+    system: true
+  tags:
+    - setup
+    - users
+
+- name: Create IoT device service user
+  user:
+    name: "{{ iot_device_service_user }}"
+    group: "{{ iot_device_service_group }}"
+    state: present
+    system: true
+    shell: /usr/sbin/nologin
+    home: "{{ iot_device_install_path }}"
+    create_home: false
+  tags:
+    - setup
+    - users
+
 - name: Create IoT device directories
   file:
     path: "{{ item }}"
     state: directory
-    owner: root
-    group: root
+    owner: "{{ iot_device_service_user }}"
+    group: "{{ iot_device_service_group }}"
     mode: '0755'
   loop:
     - "{{ iot_device_install_path }}"
@@ -34,8 +56,8 @@
   template:
     src: device.conf.j2
     dest: "{{ iot_device_config_path }}/device.conf"
-    owner: root
-    group: root
+    owner: "{{ iot_device_service_user }}"
+    group: "{{ iot_device_service_group }}"
     mode: '0644'
   notify: restart iot device
   tags:

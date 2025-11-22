@@ -4,14 +4,21 @@ After=network.target
 
 [Service]
 Type=simple
-User=root
-Group=root
+User={{ iot_device_service_user }}
+Group={{ iot_device_service_group }}
 WorkingDirectory={{ iot_device_install_path }}
 ExecStart=/usr/local/bin/iot-device --config {{ iot_device_config_path }}/device.conf
 Restart=always
 RestartSec=10
 StandardOutput=journal
 StandardError=journal
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths={{ iot_device_log_path }}
 
 [Install]
 WantedBy=multi-user.target
