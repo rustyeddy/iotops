@@ -19,6 +19,16 @@ iot_device_type: sensor
 iot_device_enabled: true
 ```
 
+### Installation Paths
+
+The role uses fallback defaults if parent paths are not defined:
+
+```yaml
+iot_device_install_path: "{{ iot_base_path | default('/opt/iot') }}/device"
+iot_device_config_path: "{{ iot_config_path | default('/etc/iot') }}/device"
+iot_device_log_path: "{{ iot_log_path | default('/var/log/iot') }}/device"
+```
+
 ### Network Configuration
 
 ```yaml
@@ -32,6 +42,16 @@ iot_device_mqtt_qos: 1
 ```yaml
 iot_device_collection_interval: 60  # seconds
 iot_device_data_format: json
+```
+
+### Service Configuration
+
+```yaml
+iot_device_service_enabled: true
+iot_device_service_state: started
+iot_device_service_user: iotdevice
+iot_device_service_group: iotdevice
+iot_device_binary_path: /usr/local/bin/iot-device
 ```
 
 ## Dependencies

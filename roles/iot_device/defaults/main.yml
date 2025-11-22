@@ -8,9 +8,10 @@ iot_device_type: sensor
 iot_device_enabled: true
 
 # Installation paths
-iot_device_install_path: "{{ iot_base_path }}/device"
-iot_device_config_path: "{{ iot_config_path }}/device"
-iot_device_log_path: "{{ iot_log_path }}/device"
+# These can be overridden; defaults are provided if parent paths are not defined
+iot_device_install_path: "{{ iot_base_path | default('/opt/iot') }}/device"
+iot_device_config_path: "{{ iot_config_path | default('/etc/iot') }}/device"
+iot_device_log_path: "{{ iot_log_path | default('/var/log/iot') }}/device"
 
 # Network configuration
 iot_device_mqtt_broker: localhost
@@ -26,3 +27,4 @@ iot_device_service_enabled: true
 iot_device_service_state: started
 iot_device_service_user: iotdevice
 iot_device_service_group: iotdevice
+iot_device_binary_path: /usr/local/bin/iot-device
