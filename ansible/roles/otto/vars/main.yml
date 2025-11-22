@@ -1,0 +1,7 @@
+---
+# Variables for Otto role
+# These variables have higher priority than defaults
+
+# Otto configuration that should not be overridden
+otto_config_file: "{{ otto_config_dir }}/config.yml"
+otto_log_file: "{{ otto_log_dir }}/otto.log"

@@ -1,0 +1,80 @@
+---
+# Main tasks file for Otto role
+
+- name: Include OS-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+  ignore_errors: yes
+  tags: otto
+
+- name: Create Otto user
+  user:
+    name: "{{ otto_user }}"
+    group: "{{ otto_group }}"
+    home: "{{ otto_home }}"
+    shell: /bin/bash
+    create_home: yes
+    state: present
+  tags: otto
+
+- name: Install system packages
+  package:
+    name: "{{ otto_system_packages }}"
+    state: present
+  tags: otto
+
+- name: Create Otto directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ otto_user }}"
+    group: "{{ otto_group }}"
+    mode: '0755'
+  loop:
+    - "{{ otto_config_dir }}"
+    - "{{ otto_log_dir }}"
+    - "{{ otto_data_dir }}"
+  tags: otto
+
+- name: Install Python packages for Otto
+  pip:
+    name: "{{ otto_python_packages }}"
+    state: present
+    executable: pip3
+  tags: otto
+
+- name: Deploy Otto configuration
+  template:
+    src: config.yml.j2
+    dest: "{{ otto_config_file }}"
+    owner: "{{ otto_user }}"
+    group: "{{ otto_group }}"
+    mode: '0644'
+  notify: restart otto
+  tags: otto
+
+- name: Deploy Otto systemd service
+  template:
+    src: otto.service.j2
+    dest: /etc/systemd/system/otto.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - reload systemd
+    - restart otto
+  tags: otto
+
+- name: Enable and start Otto service
+  systemd:
+    name: otto
+    enabled: "{{ otto_service_enabled }}"
+    state: "{{ otto_service_state }}"
+    daemon_reload: yes
+  tags: otto
+
+- name: Configure firewall for Otto
+  include_tasks: firewall.yml
+  when: otto_configure_firewall | bool
+  tags:
+    - otto
+    - firewall

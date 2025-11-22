@@ -1,0 +1,26 @@
+---
+# Group variables for Otto devices
+
+# Otto specific configuration
+otto_version: "1.0.0"
+otto_port: 8080
+otto_log_level: info
+
+# System packages specific to Otto devices
+otto_system_packages:
+  - python3
+  - python3-pip
+  - git
+  - curl
+  - htop
+  - vim
+
+# Security settings
+iot_ssh_password_authentication: no
+iot_ssh_permit_root_login: no
+
+# Timezone for Otto devices
+iot_timezone: "America/Los_Angeles"
+
+# NTP configuration
+iot_ntp_enabled: yes

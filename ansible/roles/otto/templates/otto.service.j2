@@ -1,0 +1,31 @@
+[Unit]
+Description=Otto IoT Device Service
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User={{ otto_user }}
+Group={{ otto_group }}
+WorkingDirectory={{ otto_home }}
+Environment="OTTO_CONFIG={{ otto_config_file }}"
+Environment="OTTO_LOG={{ otto_log_file }}"
+
+# ExecStart points to the Otto application binary/script
+# Customize otto_binary_path in role defaults or variables
+ExecStart={{ otto_binary_path }} --config {{ otto_config_file }}
+
+# Restart policy
+Restart=on-failure
+RestartSec=10s
+
+# Logging
+StandardOutput=append:{{ otto_log_file }}
+StandardError=append:{{ otto_log_file }}
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

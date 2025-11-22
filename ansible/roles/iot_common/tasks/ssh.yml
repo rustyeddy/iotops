@@ -1,0 +1,15 @@
+---
+# SSH security configuration tasks
+
+- name: Configure SSH daemon security settings
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    validate: 'sshd -t -f %s'
+  loop:
+    - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication {{ "yes" if iot_ssh_password_authentication else "no" }}' }
+    - { regexp: '^PermitRootLogin', line: 'PermitRootLogin {{ "yes" if iot_ssh_permit_root_login else "no" }}' }
+  notify: restart sshd
+  tags: ssh

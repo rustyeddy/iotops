@@ -1,0 +1,12 @@
+---
+# Variables for all hosts
+
+# Deployment environment
+deployment_environment: local
+
+# Common ansible settings
+ansible_ssh_common_args: '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+
+# SSH connection settings
+ansible_ssh_retries: 3
+ansible_ssh_timeout: 10

@@ -1,0 +1,19 @@
+---
+# Playbook to gather and display facts from all devices
+# Run: ansible-playbook playbooks/gather_facts.yml
+
+- name: Gather facts from IoT devices
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: Display device information
+      debug:
+        msg:
+          - "Hostname: {{ inventory_hostname }}"
+          - "IP Address: {{ ansible_default_ipv4.address | default('N/A') }}"
+          - "OS: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+          - "Architecture: {{ ansible_architecture }}"
+          - "Python Version: {{ ansible_python_version }}"
+          - "Total Memory: {{ ansible_memtotal_mb }} MB"
+          - "CPU Cores: {{ ansible_processor_vcpus }}"

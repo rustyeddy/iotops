@@ -1,0 +1,9 @@
+---
+# Main site playbook for deploying and managing all IoT devices
+# Run this playbook to deploy everything: ansible-playbook playbooks/site.yml
+
+- name: Deploy Otto Devices
+  import_playbook: deploy_otto.yml
+
+- name: Deploy IoT Devices
+  import_playbook: deploy_iot_devices.yml
