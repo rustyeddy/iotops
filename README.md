@@ -1,11 +1,13 @@
 # iotops
 IoT Operations
 
-A comprehensive project for managing local deployment of Otto and other IoT devices using Ansible.
+A comprehensive project for managing local deployment of Otto and
+other IoT devices using Ansible.
 
 ## Overview
 
-This repository provides automated deployment and configuration management for IoT devices using Ansible. It includes:
+This repository provides automated deployment and configuration
+management for IoT devices using Ansible. It includes:
 
 - **Otto Device Management**: Dedicated role for deploying and managing Otto IoT devices
 - **Generic IoT Device Support**: Common role for managing various IoT devices
