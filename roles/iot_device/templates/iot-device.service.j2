@@ -1,0 +1,17 @@
+[Unit]
+Description=IoT Device Service for {{ iot_device_name }}
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory={{ iot_device_install_path }}
+ExecStart=/usr/local/bin/iot-device --config {{ iot_device_config_path }}/device.conf
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,34 @@
+---
+# Playbook for configuring IoT gateways
+
+- name: Configure IoT gateways
+  hosts: iot_gateways
+  become: true
+  
+  tasks:
+    - name: Ensure gateway directories exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+      loop:
+        - "{{ iot_base_path }}/gateway"
+        - "{{ iot_config_path }}/gateway"
+        - "{{ iot_log_path }}/gateway"
+      tags:
+        - setup
+    
+    - name: Install gateway packages
+      package:
+        name:
+          - mosquitto
+          - mosquitto-clients
+        state: present
+      tags:
+        - packages
+    
+    - name: Display gateway configuration
+      debug:
+        msg: "IoT gateway {{ inventory_hostname }} configured for {{ environment }} environment"

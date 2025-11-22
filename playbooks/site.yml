@@ -1,0 +1,12 @@
+---
+# Main playbook that includes all other playbooks
+# This is the master playbook for the entire infrastructure
+
+- name: Configure all IoT infrastructure
+  import_playbook: iot_devices.yml
+
+- name: Configure IoT gateways
+  import_playbook: iot_gateways.yml
+
+- name: Configure IoT servers
+  import_playbook: iot_servers.yml

@@ -1,0 +1,65 @@
+---
+# Main tasks file for iot_device role
+
+- name: Include OS-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+  ignore_errors: true
+  tags:
+    - always
+
+- name: Create IoT device directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  loop:
+    - "{{ iot_device_install_path }}"
+    - "{{ iot_device_config_path }}"
+    - "{{ iot_device_log_path }}"
+  tags:
+    - setup
+    - directories
+
+- name: Install required packages
+  package:
+    name: "{{ iot_device_packages }}"
+    state: present
+  when: iot_device_packages is defined
+  tags:
+    - packages
+
+- name: Configure IoT device
+  template:
+    src: device.conf.j2
+    dest: "{{ iot_device_config_path }}/device.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart iot device
+  tags:
+    - configuration
+
+- name: Ensure IoT device service is configured
+  template:
+    src: iot-device.service.j2
+    dest: /etc/systemd/system/iot-device.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - reload systemd
+    - restart iot device
+  when: iot_device_service_enabled
+  tags:
+    - service
+
+- name: Enable and start IoT device service
+  systemd:
+    name: iot-device
+    enabled: "{{ iot_device_service_enabled }}"
+    state: "{{ iot_device_service_state }}"
+  when: iot_device_service_enabled
+  tags:
+    - service

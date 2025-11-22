@@ -1,0 +1,26 @@
+---
+# Default variables for iot_device role
+# These can be overridden in inventory or playbooks
+
+# IoT device configuration
+iot_device_name: "{{ inventory_hostname }}"
+iot_device_type: sensor
+iot_device_enabled: true
+
+# Installation paths
+iot_device_install_path: "{{ iot_base_path }}/device"
+iot_device_config_path: "{{ iot_config_path }}/device"
+iot_device_log_path: "{{ iot_log_path }}/device"
+
+# Network configuration
+iot_device_mqtt_broker: localhost
+iot_device_mqtt_port: 1883
+iot_device_mqtt_qos: 1
+
+# Data collection
+iot_device_collection_interval: 60  # seconds
+iot_device_data_format: json
+
+# Service configuration
+iot_device_service_enabled: true
+iot_device_service_state: started

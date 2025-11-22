@@ -1,0 +1,17 @@
+---
+# Variables specific to staging environment
+
+environment: staging
+
+# Staging-specific settings
+enable_monitoring: false
+enable_backup: false
+log_level: debug
+
+# Security settings
+firewall_enabled: false
+selinux_mode: permissive
+
+# Staging IoT settings
+iot_data_retention_days: 7
+iot_backup_enabled: false

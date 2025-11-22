@@ -1,0 +1,17 @@
+---
+# Variables specific to production environment
+
+environment: production
+
+# Production-specific settings
+enable_monitoring: true
+enable_backup: true
+log_level: info
+
+# Security settings
+firewall_enabled: true
+selinux_mode: enforcing
+
+# Production IoT settings
+iot_data_retention_days: 90
+iot_backup_enabled: true

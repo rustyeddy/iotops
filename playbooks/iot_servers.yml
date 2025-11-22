@@ -1,0 +1,32 @@
+---
+# Playbook for configuring IoT servers
+
+- name: Configure IoT servers
+  hosts: iot_servers
+  become: true
+  
+  tasks:
+    - name: Ensure server directories exist
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+      loop:
+        - "{{ iot_base_path }}/server"
+        - "{{ iot_config_path }}/server"
+        - "{{ iot_log_path }}/server"
+      tags:
+        - setup
+    
+    - name: Install common packages
+      package:
+        name: "{{ common_packages }}"
+        state: present
+      tags:
+        - packages
+    
+    - name: Display server configuration
+      debug:
+        msg: "IoT server {{ inventory_hostname }} configured for {{ environment }} environment"

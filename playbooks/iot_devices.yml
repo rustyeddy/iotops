@@ -1,0 +1,44 @@
+---
+# Playbook for configuring IoT devices
+
+- name: Configure IoT devices
+  hosts: iot_devices
+  become: true
+  
+  pre_tasks:
+    - name: Update package cache (Debian/Ubuntu)
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_os_family == "Debian"
+      tags:
+        - always
+    
+    - name: Update package cache (RedHat/CentOS)
+      yum:
+        update_cache: true
+      when: ansible_os_family == "RedHat"
+      tags:
+        - always
+  
+  roles:
+    - role: iot_device
+      tags:
+        - iot_device
+  
+  post_tasks:
+    - name: Verify IoT device configuration
+      command: systemctl is-active iot-device
+      register: device_status
+      changed_when: false
+      failed_when: false
+      when: iot_device_service_enabled | default(true)
+      tags:
+        - verify
+    
+    - name: Display device status
+      debug:
+        msg: "IoT device service status: {{ device_status.stdout | default('not checked') }}"
+      when: device_status is defined
+      tags:
+        - verify

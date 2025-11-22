@@ -1,0 +1,18 @@
+---
+# Handlers for iot_device role
+
+- name: reload systemd
+  systemd:
+    daemon_reload: true
+
+- name: restart iot device
+  systemd:
+    name: iot-device
+    state: restarted
+  when: iot_device_service_enabled
+
+- name: stop iot device
+  systemd:
+    name: iot-device
+    state: stopped
+  when: iot_device_service_enabled

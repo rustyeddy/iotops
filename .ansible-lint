@@ -1,0 +1,25 @@
+# Ansible-lint configuration file
+---
+profile: production
+
+# Exclude specific paths
+exclude_paths:
+  - .git/
+  - .github/
+  - collections/
+  - roles/external/
+
+# Skip specific rules (examples)
+skip_list:
+  - yaml[line-length]  # Allow longer lines in some cases
+
+# Enforce specific rules
+warn_list:
+  - experimental
+  - role-name
+
+# Enable offline mode (no internet required)
+offline: false
+
+# Use colored output
+colored: true
