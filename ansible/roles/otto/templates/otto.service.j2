@@ -11,9 +11,9 @@ WorkingDirectory={{ otto_home }}
 Environment="OTTO_CONFIG={{ otto_config_file }}"
 Environment="OTTO_LOG={{ otto_log_file }}"
 
-# ExecStart should point to the actual Otto application binary/script
-# Update this based on your Otto deployment method
-ExecStart=/usr/local/bin/otto --config {{ otto_config_file }}
+# ExecStart points to the Otto application binary/script
+# Customize otto_binary_path in role defaults or variables
+ExecStart={{ otto_binary_path }} --config {{ otto_config_file }}
 
 # Restart policy
 Restart=on-failure

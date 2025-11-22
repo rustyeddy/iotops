@@ -50,13 +50,19 @@ if [ $ping_status -eq 0 ]; then
     echo ""
     echo "✓ Successfully connected to all devices!"
 else
-    echo "$ping_output"
-    echo ""
-    echo "⚠ Could not connect to some devices."
-    echo "Please check:"
-    echo "  1. Device IP addresses in inventory/hosts.yml"
-    echo "  2. SSH access to devices"
-    echo "  3. SSH keys are configured (ssh-copy-id user@device)"
+    if echo "$ping_output" | grep -q "provided hosts list is empty"; then
+        echo "⚠ No hosts defined in inventory yet."
+        echo "This is normal for initial setup."
+        echo "Please add your device information to inventory/hosts.yml"
+    else
+        echo "$ping_output"
+        echo ""
+        echo "⚠ Could not connect to some devices."
+        echo "Please check:"
+        echo "  1. Device IP addresses in inventory/hosts.yml"
+        echo "  2. SSH access to devices"
+        echo "  3. SSH keys are configured (ssh-copy-id user@device)"
+    fi
 fi
 echo ""
 

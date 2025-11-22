@@ -29,7 +29,5 @@
     port: "{{ item.split('/')[0] }}"
     proto: "{{ item.split('/')[1] }}"
   loop: "{{ otto_firewall_ports }}"
-  when: 
-    - ufw_check.stat.exists
-    - "'/' in item"
+  when: ufw_check.stat.exists and '/' in item
   tags: firewall
