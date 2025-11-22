@@ -1,0 +1,47 @@
+---
+# Main tasks file for IoT Common role
+
+- name: Update package cache
+  package:
+    update_cache: yes
+  when: iot_update_cache | bool
+  tags: iot
+
+- name: Install common IoT packages
+  package:
+    name: "{{ iot_common_packages }}"
+    state: present
+  tags: iot
+
+- name: Configure timezone
+  timezone:
+    name: "{{ iot_timezone }}"
+  tags: iot
+
+- name: Configure NTP
+  include_tasks: ntp.yml
+  when: iot_ntp_enabled | bool
+  tags:
+    - iot
+    - ntp
+
+- name: Configure SSH security
+  include_tasks: ssh.yml
+  tags:
+    - iot
+    - ssh
+
+- name: Configure log rotation
+  include_tasks: logrotate.yml
+  tags:
+    - iot
+    - logs
+
+- name: Display device information
+  debug:
+    msg:
+      - "Device: {{ inventory_hostname }}"
+      - "IP: {{ ansible_host | default(ansible_default_ipv4.address) }}"
+      - "OS: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+      - "Python: {{ ansible_python_version }}"
+  tags: iot

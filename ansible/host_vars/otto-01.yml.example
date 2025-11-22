@@ -1,0 +1,30 @@
+---
+# Example host-specific variables for otto-01
+# Copy this file to otto-01.yml and customize as needed
+
+# Otto application settings
+otto_port: 8080
+otto_log_level: debug
+otto_version: "1.0.0"
+
+# Device metadata
+device_location: "Living Room"
+device_description: "Primary Otto controller"
+device_tags:
+  - controller
+  - primary
+
+# Custom environment variables for this device
+otto_env_vars:
+  OTTO_ENV: "production"
+  OTTO_REGION: "home"
+
+# Override system packages if needed
+otto_system_packages:
+  - python3
+  - python3-pip
+  - git
+  - curl
+  - vim
+  - htop
+  - mosquitto-clients  # MQTT client for this device

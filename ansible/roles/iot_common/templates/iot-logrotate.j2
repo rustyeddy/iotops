@@ -1,0 +1,13 @@
+# Managed by Ansible - Do not edit manually
+# Log rotation for IoT device logs
+
+/var/log/iot/*.log {
+    daily
+    rotate {{ iot_log_retention_days }}
+    compress
+    delaycompress
+    notifempty
+    missingok
+    create 0640 root root
+    sharedscripts
+}

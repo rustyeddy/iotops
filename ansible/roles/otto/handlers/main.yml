@@ -1,0 +1,21 @@
+---
+# Handlers for Otto role
+
+- name: reload systemd
+  systemd:
+    daemon_reload: yes
+
+- name: restart otto
+  systemd:
+    name: otto
+    state: restarted
+
+- name: stop otto
+  systemd:
+    name: otto
+    state: stopped
+
+- name: start otto
+  systemd:
+    name: otto
+    state: started

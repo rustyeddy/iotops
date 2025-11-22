@@ -1,0 +1,25 @@
+---
+# Group variables for generic IoT devices
+
+# Common packages for all IoT devices
+iot_common_packages:
+  - vim
+  - htop
+  - net-tools
+  - curl
+  - wget
+  - git
+  - python3
+  - python3-pip
+  - rsync
+
+# System configuration
+iot_timezone: UTC
+iot_ntp_enabled: yes
+
+# Security settings
+iot_ssh_password_authentication: no
+iot_ssh_permit_root_login: no
+
+# Logging
+iot_log_retention_days: 30

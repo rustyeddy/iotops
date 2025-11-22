@@ -1,0 +1,4 @@
+# Managed by Ansible - Do not edit manually
+[Time]
+NTP={{ iot_ntp_servers | join(' ') }}
+FallbackNTP=ntp.ubuntu.com

@@ -1,0 +1,15 @@
+---
+# Simple ping playbook to test connectivity to all devices
+# Run: ansible-playbook playbooks/ping.yml
+
+- name: Ping all IoT devices
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Ping devices
+      ping:
+      
+    - name: Display connection status
+      debug:
+        msg: "Successfully connected to {{ inventory_hostname }}"

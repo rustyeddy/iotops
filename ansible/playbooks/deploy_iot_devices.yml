@@ -1,0 +1,28 @@
+---
+# Playbook for deploying and configuring generic IoT devices
+# Run: ansible-playbook playbooks/deploy_iot_devices.yml
+
+- name: Deploy and Configure IoT Devices
+  hosts: iot_devices
+  gather_facts: yes
+  become: yes
+
+  pre_tasks:
+    - name: Wait for system to become reachable
+      wait_for_connection:
+        timeout: 60
+      tags: always
+
+    - name: Gather facts
+      setup:
+      tags: always
+
+  roles:
+    - role: iot_common
+      tags: iot
+
+  post_tasks:
+    - name: Verify IoT device deployment
+      debug:
+        msg: "IoT device {{ inventory_hostname }} has been configured successfully"
+      tags: always

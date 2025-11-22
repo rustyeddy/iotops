@@ -1,0 +1,17 @@
+---
+# Log rotation configuration tasks
+
+- name: Install logrotate
+  package:
+    name: logrotate
+    state: present
+  tags: logs
+
+- name: Configure log rotation for IoT devices
+  template:
+    src: iot-logrotate.j2
+    dest: /etc/logrotate.d/iot-devices
+    owner: root
+    group: root
+    mode: '0644'
+  tags: logs

@@ -1,0 +1,12 @@
+---
+# Handlers for IoT Common role
+
+- name: restart sshd
+  systemd:
+    name: sshd
+    state: restarted
+
+- name: restart timesyncd
+  systemd:
+    name: systemd-timesyncd
+    state: restarted

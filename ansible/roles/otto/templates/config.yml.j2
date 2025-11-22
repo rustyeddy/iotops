@@ -1,0 +1,25 @@
+# Otto Configuration File
+# Managed by Ansible - Do not edit manually
+
+# General settings
+general:
+  version: "{{ otto_version }}"
+  log_level: "{{ otto_log_level }}"
+  log_file: "{{ otto_log_file }}"
+  data_dir: "{{ otto_data_dir }}"
+
+# Network settings
+network:
+  port: {{ otto_port }}
+  host: 0.0.0.0
+
+# Device information
+device:
+  hostname: "{{ inventory_hostname }}"
+  ip_address: "{{ ansible_host | default(ansible_default_ipv4.address) }}"
+  environment: "{{ deployment_environment | default('local') }}"
+
+# User settings
+user:
+  name: "{{ otto_user }}"
+  home: "{{ otto_home }}"

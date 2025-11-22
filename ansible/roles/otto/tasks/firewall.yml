@@ -1,0 +1,35 @@
+---
+# Firewall configuration tasks for Otto
+
+- name: Check if firewalld is installed
+  command: which firewalld
+  register: firewalld_check
+  changed_when: false
+  failed_when: false
+  tags: firewall
+
+- name: Configure firewalld for Otto
+  firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    state: enabled
+    immediate: yes
+  loop: "{{ otto_firewall_ports }}"
+  when: firewalld_check.rc == 0
+  tags: firewall
+
+- name: Check if ufw is installed
+  command: which ufw
+  register: ufw_check
+  changed_when: false
+  failed_when: false
+  tags: firewall
+
+- name: Configure ufw for Otto
+  ufw:
+    rule: allow
+    port: "{{ item.split('/')[0] }}"
+    proto: "{{ item.split('/')[1] }}"
+  loop: "{{ otto_firewall_ports }}"
+  when: ufw_check.rc == 0
+  tags: firewall
