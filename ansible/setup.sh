@@ -43,10 +43,14 @@ echo ""
 echo "Testing connectivity to devices..."
 echo "Running: ansible all -m ping"
 echo ""
-if ansible all -m ping 2>/dev/null; then
+ping_output=$(ansible all -m ping 2>&1)
+ping_status=$?
+if [ $ping_status -eq 0 ]; then
+    echo "$ping_output"
     echo ""
     echo "✓ Successfully connected to all devices!"
 else
+    echo "$ping_output"
     echo ""
     echo "⚠ Could not connect to some devices."
     echo "Please check:"

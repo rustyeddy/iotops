@@ -3,17 +3,18 @@
 
 - name: Install NTP packages (systemd-timesyncd or chrony)
   block:
+    - name: Gather service facts
+      service_facts:
+
     - name: Check if systemd-timesyncd is available
-      command: systemctl status systemd-timesyncd
-      register: timesyncd_check
-      changed_when: false
-      failed_when: false
+      set_fact:
+        timesyncd_available: "{{ 'systemd-timesyncd.service' in services }}"
 
     - name: Install chrony if systemd-timesyncd not available
       package:
         name: chrony
         state: present
-      when: timesyncd_check.rc != 0
+      when: not timesyncd_available
 
 - name: Configure systemd-timesyncd
   template:
@@ -23,11 +24,11 @@
     group: root
     mode: '0644'
   notify: restart timesyncd
-  when: timesyncd_check.rc == 0
+  when: timesyncd_available
 
 - name: Enable and start timesyncd service
   systemd:
     name: systemd-timesyncd
     enabled: yes
     state: started
-  when: timesyncd_check.rc == 0
+  when: timesyncd_available

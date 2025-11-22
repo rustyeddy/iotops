@@ -16,7 +16,7 @@ otto_service_enabled: yes
 otto_service_state: started
 
 # Otto application settings
-otto_version: latest
+otto_version: "1.0.0"
 otto_port: 8080
 otto_log_level: info
 
