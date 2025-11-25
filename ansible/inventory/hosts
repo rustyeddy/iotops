@@ -1,0 +1,35 @@
+# Ansible inventory file for IoT devices
+# This file defines the hosts and groups for managing IoT devices
+
+# Local control node
+[local]
+localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python3
+
+# Otto IoT device group
+[otto_devices]
+kiosk ansible_host=10.11.3.3
+
+[gardener]
+gardener ansible_host=10.11.10.2
+
+# Generic IoT devices group
+[iot_devices]
+# Example IoT device entries
+# iot-sensor-01 ansible_host=192.168.1.201 ansible_user=pi device_type=sensor
+iot-camera-01 ansible_host=10.11.5.1 device_type=camera
+
+# Group variables for otto_devices
+[otto_devices:vars]
+device_type=otto
+python_interpreter=/usr/bin/python3
+
+# Group variables for iot_devices
+[iot_devices:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+# Global variables for all hosts
+[all:vars]
+# ansible_user={{ lookup('env', 'USER') }}
+ansible_user=otto
+deployment_environment=local

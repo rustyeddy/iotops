@@ -23,9 +23,9 @@ otto_port: 8080
 otto_log_level: info
 
 # System packages required by Otto
+# Removed python3 and python3-pip as they are 
+# externally managed.
 otto_system_packages:
-  - python3
-  - python3-pip
   - git
   - curl
 
