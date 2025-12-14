@@ -17,28 +17,27 @@ dev_configure_shell: yes
 
 # Custom git configuration for dev machines
 # Uncomment and customize these for your team:
-# dev_git_config:
-#   - name: user.name
-#     value: "Developer Name"
-#   - name: user.email
-#     value: "dev@example.com"
-#   - name: core.editor
-#     value: vim
-#   - name: color.ui
-#     value: auto
+dev_git_config:
+   - name: user.name
+     value: "Rusty Eddy"
+   - name: user.email
+     value: "rusty@rustyeddy.com"
+   - name: core.editor
+     value: vim
+   - name: color.ui
+     value: auto
 
 # Additional custom packages for your dev environment
-# dev_packages:
-#   - build-essential
-#   - git
-#   - custom-package
+dev_packages:
+   - git
+   - custom-package
 
 # Additional Python packages
-# dev_pip_packages:
-#   - ansible
-#   - custom-python-package
+dev_pip_packages:
+   - ansible
+   - custom-python-package
 
 # Additional Node.js packages
-# dev_npm_packages:
-#   - yarn
-#   - custom-npm-package
+dev_npm_packages:
+   - yarn
+   - custom-npm-package

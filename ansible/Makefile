@@ -35,6 +35,9 @@ deploy-otto:
 deploy-iot:
 	ansible-playbook playbooks/deploy_iot_devices.yml $(if $(LIMIT),--limit $(LIMIT),) $(if $(TAGS),--tags $(TAGS),)
 
+deploy-dev:
+	ansible-playbook playbooks/deploy_dev_machine.yml $(if $(LIMIT),--limit $(LIMIT),) $(if $(TAGS),--tags $(TAGS),)
+
 update:
 	ansible-playbook playbooks/update_system.yml $(if $(LIMIT),--limit $(LIMIT),)
 

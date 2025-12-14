@@ -7,6 +7,12 @@
   when: dev_update_cache | bool
   tags: dev
 
+- name: Install fedora development goup
+  package:
+    name: "{{ fedora_package_groups }}"
+    state: present
+  tags: dev
+
 - name: Install development tools and packages
   package:
     name: "{{ dev_packages }}"

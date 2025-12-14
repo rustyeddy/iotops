@@ -4,8 +4,8 @@
 
 - name: Deploy Development Machines
   hosts: dev_machines
-  become: yes
-  
+  become: true
+
   tasks:
     - name: Apply dev_machine role
       include_role:

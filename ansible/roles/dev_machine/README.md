@@ -66,9 +66,6 @@ dev_container_packages:
 ```yaml
 dev_install_databases: yes
 dev_database_packages:
-  - postgresql-client
-  - mysql-client
-  - redis-tools
   - sqlite3
 ```
 
