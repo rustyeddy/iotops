@@ -18,7 +18,7 @@
     group: "{{ dev_group }}"
     mode: '0644'
   loop: "{{ dev_bash_aliases }}"
-  when: bashrc_stat.stat.exists and dev_bash_aliases | length > 0
+  when: dev_bash_aliases | length > 0
   tags:
     - dev
     - shell
@@ -42,7 +42,6 @@
     owner: "{{ dev_user }}"
     group: "{{ dev_group }}"
     mode: '0644'
-  when: bashrc_stat.stat.exists
   tags:
     - dev
     - shell

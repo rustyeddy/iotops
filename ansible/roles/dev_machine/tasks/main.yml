@@ -76,6 +76,7 @@
     scope: global
     value: "{{ item.value }}"
   loop: "{{ dev_git_config }}"
+  become: yes
   become_user: "{{ dev_user }}"
   when: dev_configure_git | bool and dev_git_config | length > 0
   tags:
