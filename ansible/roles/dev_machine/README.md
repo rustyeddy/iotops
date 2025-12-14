@@ -21,11 +21,28 @@ dev_group: "{{ ansible_user }}"
 dev_user_home: "/home/{{ ansible_user }}"
 ```
 
+### Platform-Specific Packages
+
+The role automatically detects the OS family and installs platform-specific packages:
+
+```yaml
+# Fedora/RHEL: Development tools group
+fedora_package_groups:
+  - "@development-tools"
+
+# Ubuntu/Debian: Build essentials and development packages
+debian_dev_packages:
+  - build-essential
+  - python3-venv
+  - python3-dev
+  - ruby-dev
+  - openssh-client
+```
+
 ### Core Development Packages
 
 ```yaml
 dev_packages:
-  - build-essential
   - git
   - curl
   - wget
@@ -65,8 +82,22 @@ dev_container_packages:
 
 ```yaml
 dev_install_databases: yes
+
+# Cross-platform database tools
 dev_database_packages:
   - sqlite3
+
+# Ubuntu/Debian specific database clients
+debian_database_packages: []
+# - postgresql-client
+# - mysql-client
+# - redis-tools
+
+# Fedora/RHEL specific database clients
+rhel_database_packages: []
+# - postgresql
+# - mysql
+# - redis
 ```
 
 ### Python Packages

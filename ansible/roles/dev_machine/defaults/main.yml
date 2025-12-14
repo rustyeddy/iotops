@@ -9,11 +9,20 @@ dev_user_home: "/home/{{ ansible_user }}"
 # Update settings
 dev_update_cache: yes
 
-# Fedora Groups
+# Platform-specific packages
+# Fedora/RHEL package groups
 fedora_package_groups:
   - "@development-tools"
 
-# Core development packages
+# Ubuntu/Debian specific packages (installed conditionally)
+debian_dev_packages:
+  - build-essential
+  - python3-venv
+  - python3-dev
+  - ruby-dev
+  - openssh-client
+
+# Core development packages (cross-platform)
 dev_packages:
   - git
   - curl
@@ -33,7 +42,6 @@ dev_packages:
   - openssh-server
   - ca-certificates
   - gnupg
-  - lsb-release
   - valgrind
 
 # Programming language packages
@@ -56,8 +64,24 @@ dev_container_packages:
 
 # Database client packages
 dev_install_databases: yes
+
+# Cross-platform database tools
 dev_database_packages:
   - sqlite3
+
+# Ubuntu/Debian specific database clients
+debian_database_packages: []
+# Uncomment as needed:
+# - postgresql-client
+# - mysql-client
+# - redis-tools
+
+# Fedora/RHEL specific database clients
+rhel_database_packages: []
+# Uncomment as needed:
+# - postgresql
+# - mysql
+# - redis
 
 # Python packages to install globally
 dev_install_pip_packages: yes
