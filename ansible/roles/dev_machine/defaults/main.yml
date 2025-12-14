@@ -19,6 +19,8 @@ dev_packages:
   - curl
   - wget
   - vim
+  - neovim
+  - emacs-gtk+x11
   - nano
   - htop
   - tree
