@@ -1,6 +1,6 @@
 # IoT Operations - Ansible Deployment
 
-This directory contains Ansible playbooks and roles for managing local deployment of Otto and other IoT devices.
+This directory contains Ansible playbooks and roles for managing local deployment of Otto, IoT devices, and development machines.
 
 ## Directory Structure
 
@@ -13,16 +13,19 @@ ansible/
 │   ├── site.yml         # Main site playbook
 │   ├── deploy_otto.yml  # Otto deployment
 │   ├── deploy_iot_devices.yml
+│   ├── deploy_dev_machine.yml # Development machine deployment
 │   ├── ping.yml         # Connectivity test
 │   ├── gather_facts.yml # Device information
 │   └── update_system.yml # System updates
 ├── roles/               # Ansible roles
 │   ├── otto/           # Otto device role
-│   └── iot_common/     # Common IoT device role
+│   ├── iot_common/     # Common IoT device role
+│   └── dev_machine/    # Development machine role
 ├── group_vars/         # Group variables
 │   ├── all.yml
 │   ├── otto_devices.yml
-│   └── iot_devices.yml
+│   ├── iot_devices.yml
+│   └── dev_machines.yml
 └── host_vars/          # Host-specific variables
 ```
 
@@ -74,6 +77,7 @@ otto_devices:
 
 - **Otto Role**: Modify `roles/otto/` for Otto-specific configuration
 - **IoT Common Role**: Modify `roles/iot_common/` for common device settings
+- **Dev Machine Role**: Modify `roles/dev_machine/` for development machine configuration
 
 ## Usage
 
@@ -111,6 +115,12 @@ ansible-playbook playbooks/deploy_otto.yml
 
 ```bash
 ansible-playbook playbooks/deploy_iot_devices.yml
+```
+
+### Deploy Development Machines
+
+```bash
+ansible-playbook playbooks/deploy_dev_machine.yml
 ```
 
 ### Update System Packages
@@ -173,6 +183,24 @@ ansible-playbook playbooks/site.yml -vv
 3. Deploy to the new device:
    ```bash
    ansible-playbook playbooks/deploy_otto.yml --limit otto-02
+   ```
+
+### Add a Development Machine
+
+1. Add the machine to `inventory/hosts`:
+   ```yaml
+   dev_machines:
+     hosts:
+       dev-laptop:
+         ansible_host: 192.168.1.50
+         ansible_user: developer
+   ```
+
+2. (Optional) Create host-specific variables in `host_vars/dev-laptop.yml`
+
+3. Deploy to the development machine:
+   ```bash
+   ansible-playbook playbooks/deploy_dev_machine.yml --limit dev-laptop
    ```
 
 ### Add a New IoT Device Type

@@ -1,0 +1,119 @@
+---
+# Default variables for dev_machine role
+
+# Development user and group
+dev_user: "{{ ansible_user }}"
+dev_group: "{{ ansible_user }}"
+dev_user_home: "/home/{{ ansible_user }}"
+
+# Update settings
+dev_update_cache: yes
+
+# Core development packages
+dev_packages:
+  - build-essential
+  - git
+  - curl
+  - wget
+  - vim
+  - nano
+  - htop
+  - tree
+  - tmux
+  - screen
+  - jq
+  - unzip
+  - zip
+  - rsync
+  - openssh-client
+  - openssh-server
+  - ca-certificates
+  - gnupg
+  - lsb-release
+
+# Programming language packages
+dev_install_languages: yes
+dev_language_packages:
+  - python3
+  - python3-pip
+  - python3-venv
+  - python3-dev
+  - nodejs
+  - npm
+  - golang-go
+  - ruby
+  - ruby-dev
+
+# Container and orchestration tools
+dev_install_containers: yes
+dev_container_packages:
+  - docker.io
+  - docker-compose
+
+# Database client packages
+dev_install_databases: yes
+dev_database_packages:
+  - postgresql-client
+  - mysql-client
+  - redis-tools
+  - sqlite3
+
+# Python packages to install globally
+dev_install_pip_packages: yes
+dev_pip_packages:
+  - ansible
+  - ansible-lint
+  - black
+  - flake8
+  - pylint
+  - pytest
+  - virtualenv
+  - pipenv
+  - requests
+  - ipython
+
+# Node.js packages to install globally
+dev_install_npm_packages: yes
+dev_npm_packages:
+  - yarn
+  - typescript
+  - eslint
+  - prettier
+  - nodemon
+
+# Git configuration
+dev_configure_git: yes
+dev_git_config:
+  - name: core.editor
+    value: vim
+  - name: color.ui
+    value: auto
+  - name: pull.rebase
+    value: "false"
+
+# Development directories to create
+dev_directories:
+  - "{{ dev_user_home }}/projects"
+  - "{{ dev_user_home }}/workspace"
+  - "{{ dev_user_home }}/.config"
+
+# Shell configuration
+dev_configure_shell: yes
+dev_bash_aliases:
+  - "alias ll='ls -lah'"
+  - "alias gs='git status'"
+  - "alias gp='git pull'"
+  - "alias gc='git commit'"
+  - "alias gco='git checkout'"
+  - "alias k='kubectl'"
+  - "alias d='docker'"
+  - "alias dc='docker-compose'"
+
+# Editor preferences
+dev_default_editor: vim
+
+# SSH configuration
+dev_enable_ssh: yes
+
+# Development environment variables
+dev_environment_vars: {}

@@ -1,0 +1,120 @@
+---
+# Main tasks file for dev_machine role
+
+- name: Update package cache
+  package:
+    update_cache: yes
+  when: dev_update_cache | bool
+  tags: dev
+
+- name: Install development tools and packages
+  package:
+    name: "{{ dev_packages }}"
+    state: present
+  tags: dev
+
+- name: Install programming language packages
+  package:
+    name: "{{ dev_language_packages }}"
+    state: present
+  when: dev_install_languages | bool
+  tags:
+    - dev
+    - languages
+
+- name: Install container tools
+  package:
+    name: "{{ dev_container_packages }}"
+    state: present
+  when: dev_install_containers | bool
+  tags:
+    - dev
+    - containers
+
+- name: Ensure docker group exists
+  group:
+    name: docker
+    state: present
+  when: dev_install_containers | bool and 'docker.io' in dev_container_packages
+  tags:
+    - dev
+    - containers
+
+- name: Add development user to docker group
+  user:
+    name: "{{ dev_user }}"
+    groups: docker
+    append: yes
+  when: dev_install_containers | bool and 'docker.io' in dev_container_packages and dev_user != 'root'
+  tags:
+    - dev
+    - containers
+
+- name: Install database clients
+  package:
+    name: "{{ dev_database_packages }}"
+    state: present
+  when: dev_install_databases | bool
+  tags:
+    - dev
+    - databases
+
+- name: Create development directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ dev_user }}"
+    group: "{{ dev_group }}"
+    mode: '0755'
+  loop: "{{ dev_directories }}"
+  when: dev_directories | length > 0
+  tags: dev
+
+- name: Configure git global settings
+  git_config:
+    name: "{{ item.name }}"
+    scope: global
+    value: "{{ item.value }}"
+  loop: "{{ dev_git_config }}"
+  become_user: "{{ dev_user }}"
+  when: dev_configure_git | bool and dev_git_config | length > 0
+  tags:
+    - dev
+    - git
+
+- name: Install pip packages globally
+  pip:
+    name: "{{ dev_pip_packages }}"
+    state: present
+  when: dev_install_pip_packages | bool and dev_pip_packages | length > 0
+  tags:
+    - dev
+    - python
+
+- name: Install Node.js packages globally
+  npm:
+    name: "{{ item }}"
+    global: yes
+    state: present
+  loop: "{{ dev_npm_packages }}"
+  when: dev_install_npm_packages | bool and dev_npm_packages | length > 0
+  tags:
+    - dev
+    - nodejs
+
+- name: Configure shell environment
+  include_tasks: shell.yml
+  when: dev_configure_shell | bool
+  tags:
+    - dev
+    - shell
+
+- name: Display development machine information
+  debug:
+    msg:
+      - "Development Machine: {{ inventory_hostname }}"
+      - "IP: {{ ansible_host | default(ansible_default_ipv4.address) }}"
+      - "OS: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+      - "Python: {{ ansible_python_version }}"
+      - "Dev User: {{ dev_user }}"
+  tags: dev

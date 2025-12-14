@@ -1,0 +1,13 @@
+---
+# Playbook for deploying and configuring development machines
+# Usage: ansible-playbook playbooks/deploy_dev_machine.yml
+
+- name: Deploy Development Machines
+  hosts: dev_machines
+  become: yes
+  
+  tasks:
+    - name: Apply dev_machine role
+      include_role:
+        name: dev_machine
+      tags: dev

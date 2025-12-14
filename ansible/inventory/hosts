@@ -18,6 +18,12 @@ gardener ansible_host=10.11.10.2
 # iot-sensor-01 ansible_host=192.168.1.201 ansible_user=pi device_type=sensor
 iot-camera-01 ansible_host=10.11.5.1 device_type=camera
 
+# Development machines group
+[dev_machines]
+# Example development machine entries
+# dev-laptop ansible_host=192.168.1.50 ansible_user=developer
+# dev-workstation ansible_host=192.168.1.51 ansible_user=developer
+
 # Group variables for otto_devices
 [otto_devices:vars]
 device_type=otto
@@ -27,6 +33,11 @@ python_interpreter=/usr/bin/python3
 [iot_devices:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+# Group variables for dev_machines
+[dev_machines:vars]
+ansible_python_interpreter=/usr/bin/python3
+device_type=dev_machine
 
 # Global variables for all hosts
 [all:vars]

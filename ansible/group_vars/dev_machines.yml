@@ -1,0 +1,44 @@
+---
+# Group variables for development machines
+
+# Development machine type
+device_type: dev_machine
+
+# Install all development tools by default
+dev_install_languages: yes
+dev_install_containers: yes
+dev_install_databases: yes
+dev_install_pip_packages: yes
+dev_install_npm_packages: yes
+
+# Configure development environment
+dev_configure_git: yes
+dev_configure_shell: yes
+
+# Custom git configuration for dev machines
+# Uncomment and customize these for your team:
+# dev_git_config:
+#   - name: user.name
+#     value: "Developer Name"
+#   - name: user.email
+#     value: "dev@example.com"
+#   - name: core.editor
+#     value: vim
+#   - name: color.ui
+#     value: auto
+
+# Additional custom packages for your dev environment
+# dev_packages:
+#   - build-essential
+#   - git
+#   - custom-package
+
+# Additional Python packages
+# dev_pip_packages:
+#   - ansible
+#   - custom-python-package
+
+# Additional Node.js packages
+# dev_npm_packages:
+#   - yarn
+#   - custom-npm-package

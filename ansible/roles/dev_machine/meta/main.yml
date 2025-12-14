@@ -1,0 +1,32 @@
+---
+galaxy_info:
+  author: iotops
+  description: Ansible role for setting up development machines
+  company: iotops
+  
+  license: MIT
+  
+  min_ansible_version: '2.9'
+  
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+    - name: EL
+      versions:
+        - 8
+        - 9
+  
+  galaxy_tags:
+    - development
+    - devops
+    - tools
+    - programming
+    - automation
+
+dependencies: []

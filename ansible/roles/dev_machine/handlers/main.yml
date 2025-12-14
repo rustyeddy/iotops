@@ -1,0 +1,15 @@
+---
+# Handlers for dev_machine role
+
+- name: restart docker
+  systemd:
+    name: docker
+    state: restarted
+    daemon_reload: yes
+  when: dev_install_containers | bool
+
+- name: restart ssh
+  systemd:
+    name: ssh
+    state: restarted
+  when: dev_enable_ssh | bool
