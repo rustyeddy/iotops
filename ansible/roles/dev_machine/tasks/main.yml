@@ -37,6 +37,8 @@
     enabled: yes
     scope: user
     state: started
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ dev_user_uid | default(1000) }}"
   become: yes
   become_user: "{{ dev_user }}"
   when: dev_install_containers | bool and 'podman' in dev_container_packages and dev_user != 'root'
