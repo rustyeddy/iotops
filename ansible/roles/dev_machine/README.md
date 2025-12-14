@@ -89,15 +89,15 @@ dev_database_packages:
 
 # Ubuntu/Debian specific database clients
 debian_database_packages: []
-  # - postgresql-client
-  # - mysql-client
-  # - redis-tools
+# - postgresql-client
+# - mysql-client
+# - redis-tools
 
 # Fedora/RHEL specific database clients
 rhel_database_packages: []
-  # - postgresql
-  # - mysql
-  # - redis
+# - postgresql
+# - mysql
+# - redis
 ```
 
 ### Python Packages

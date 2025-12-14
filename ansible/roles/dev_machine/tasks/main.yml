@@ -74,7 +74,10 @@
   package:
     name: "{{ debian_database_packages }}"
     state: present
-  when: dev_install_databases | bool and ansible_os_family == 'Debian' and debian_database_packages | length > 0
+  when:
+    - dev_install_databases | bool
+    - ansible_os_family == 'Debian'
+    - debian_database_packages | length > 0
   tags:
     - dev
     - databases
@@ -83,7 +86,10 @@
   package:
     name: "{{ rhel_database_packages }}"
     state: present
-  when: dev_install_databases | bool and ansible_os_family == 'RedHat' and rhel_database_packages | length > 0
+  when:
+    - dev_install_databases | bool
+    - ansible_os_family == 'RedHat'
+    - rhel_database_packages | length > 0
   tags:
     - dev
     - databases

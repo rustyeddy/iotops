@@ -69,17 +69,17 @@ dev_database_packages:
 
 # Ubuntu/Debian specific database clients
 debian_database_packages: []
-  # Uncomment as needed:
-  # - postgresql-client
-  # - mysql-client
-  # - redis-tools
+# Uncomment as needed:
+# - postgresql-client
+# - mysql-client
+# - redis-tools
 
 # Fedora/RHEL specific database clients
 rhel_database_packages: []
-  # Uncomment as needed:
-  # - postgresql
-  # - mysql
-  # - redis
+# Uncomment as needed:
+# - postgresql
+# - mysql
+# - redis
 
 # Python packages to install globally
 dev_install_pip_packages: yes
