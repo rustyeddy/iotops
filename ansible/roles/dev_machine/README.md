@@ -55,8 +55,10 @@ dev_language_packages:
 ```yaml
 dev_install_containers: yes
 dev_container_packages:
-  - docker.io
-  - docker-compose
+  - podman
+  - podman-compose
+  - buildah
+  - skopeo
 ```
 
 ### Database Clients
@@ -121,7 +123,8 @@ dev_bash_aliases:
   - "alias ll='ls -lah'"
   - "alias gs='git status'"
   - "alias k='kubectl'"
-  - "alias d='docker'"
+  - "alias p='podman'"
+  - "alias pc='podman-compose'"
 ```
 
 ## Dependencies
@@ -171,9 +174,11 @@ Customized configuration:
 - Ruby
 
 ### Container Technology
-- Docker
-- Docker Compose
-- Automatic user addition to docker group
+- Podman (rootless container runtime)
+- Podman Compose
+- Buildah (container image building)
+- Skopeo (container image operations)
+- Automatic podman socket enablement for rootless mode
 
 ### Database Tools
 - PostgreSQL client
@@ -261,7 +266,7 @@ dev_git_config:
 
 ## Security Considerations
 
-- The role adds the development user to the docker group, which grants root-equivalent privileges
+- Podman is configured for rootless operation, providing better security isolation than Docker
 - SSH server is enabled by default; ensure proper configuration
 - Review and customize package lists based on your security requirements
 

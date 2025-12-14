@@ -119,7 +119,7 @@ iotops/
 ### Development Machine Setup
 - Comprehensive development tools installation
 - Programming languages (Python, Node.js, Go, Ruby)
-- Container platforms (Docker, Docker Compose)
+- Container platforms (Podman, Podman Compose, Buildah, Skopeo)
 - Database clients (PostgreSQL, MySQL, Redis, SQLite)
 - Git configuration and aliases
 - Shell customization

@@ -31,24 +31,19 @@
     - dev
     - containers
 
-- name: Ensure docker group exists
-  group:
-    name: docker
-    state: present
-  when: dev_install_containers | bool and 'docker.io' in dev_container_packages
+- name: Enable podman socket for rootless mode
+  systemd:
+    name: podman.socket
+    enabled: yes
+    scope: user
+    state: started
+  become: yes
+  become_user: "{{ dev_user }}"
+  when: dev_install_containers | bool and 'podman' in dev_container_packages and dev_user != 'root'
   tags:
     - dev
     - containers
-
-- name: Add development user to docker group
-  user:
-    name: "{{ dev_user }}"
-    groups: docker
-    append: yes
-  when: dev_install_containers | bool and 'docker.io' in dev_container_packages and dev_user != 'root'
-  tags:
-    - dev
-    - containers
+  ignore_errors: yes
 
 - name: Install database clients
   package:

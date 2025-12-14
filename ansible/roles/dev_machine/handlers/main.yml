@@ -1,9 +1,9 @@
 ---
 # Handlers for dev_machine role
 
-- name: restart docker
+- name: restart podman
   systemd:
-    name: docker
+    name: podman
     state: restarted
     daemon_reload: yes
   when: dev_install_containers | bool

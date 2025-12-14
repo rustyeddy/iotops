@@ -47,8 +47,10 @@ dev_language_packages:
 # Container and orchestration tools
 dev_install_containers: yes
 dev_container_packages:
-  - docker.io
-  - docker-compose
+  - podman
+  - podman-compose
+  - buildah
+  - skopeo
 
 # Database client packages
 dev_install_databases: yes
@@ -106,8 +108,8 @@ dev_bash_aliases:
   - "alias gc='git commit'"
   - "alias gco='git checkout'"
   - "alias k='kubectl'"
-  - "alias d='docker'"
-  - "alias dc='docker-compose'"
+  - "alias p='podman'"
+  - "alias pc='podman-compose'"
 
 # Editor preferences
 dev_default_editor: vim
