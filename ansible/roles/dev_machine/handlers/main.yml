@@ -1,0 +1,20 @@
+---
+# Handlers for dev_machine role
+
+- name: restart podman
+  systemd:
+    name: podman.socket
+    state: restarted
+    daemon_reload: yes
+    scope: user
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ dev_user_uid | default(1000) }}"
+  become: yes
+  become_user: "{{ dev_user }}"
+  when: dev_install_containers | bool
+
+- name: restart ssh
+  systemd:
+    name: ssh
+    state: restarted
+  when: dev_enable_ssh | bool

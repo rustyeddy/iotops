@@ -1,16 +1,17 @@
 # iotops
 IoT Operations
 
-A comprehensive project for managing local deployment of Otto and
-other IoT devices using Ansible.
+A comprehensive project for managing local deployment of Otto, IoT devices,
+and development machines using Ansible.
 
 ## Overview
 
 This repository provides automated deployment and configuration
-management for IoT devices using Ansible. It includes:
+management for IoT devices and development machines using Ansible. It includes:
 
 - **Otto Device Management**: Dedicated role for deploying and managing Otto IoT devices
 - **Generic IoT Device Support**: Common role for managing various IoT devices
+- **Development Machine Setup**: Comprehensive role for configuring development environments
 - **Automated Configuration**: Playbooks for deployment, updates, and maintenance
 - **Flexible Inventory**: Easy-to-configure inventory system for managing multiple devices
 
@@ -76,6 +77,11 @@ Deploy only Otto devices:
 ansible-playbook playbooks/deploy_otto.yml
 ```
 
+Deploy development machines:
+```bash
+ansible-playbook playbooks/deploy_dev_machine.yml
+```
+
 For detailed documentation, see [ansible/README.md](ansible/README.md)
 
 ## Project Structure
@@ -88,7 +94,8 @@ iotops/
 │   ├── playbooks/          # Deployment playbooks
 │   ├── roles/              # Ansible roles
 │   │   ├── otto/          # Otto device role
-│   │   └── iot_common/    # Common IoT role
+│   │   ├── iot_common/    # Common IoT role
+│   │   └── dev_machine/   # Development machine role
 │   ├── group_vars/        # Group variables
 │   ├── host_vars/         # Host-specific variables
 │   └── README.md          # Detailed Ansible documentation
@@ -109,10 +116,19 @@ iotops/
 - SSH security
 - Package management
 
+### Development Machine Setup
+- Comprehensive development tools installation
+- Programming languages (Python, Node.js, Go, Ruby)
+- Container platforms (Podman, Podman Compose, Buildah, Skopeo)
+- Database clients (PostgreSQL, MySQL, Redis, SQLite)
+- Git configuration and aliases
+- Shell customization
+
 ### Playbooks
 - **site.yml**: Deploy all devices
 - **deploy_otto.yml**: Deploy Otto devices
 - **deploy_iot_devices.yml**: Deploy generic IoT devices
+- **deploy_dev_machine.yml**: Deploy development machines
 - **ping.yml**: Test device connectivity
 - **gather_facts.yml**: Collect device information
 - **update_system.yml**: Update system packages
@@ -122,6 +138,7 @@ iotops/
 - [Ansible Setup Guide](ansible/README.md) - Comprehensive guide for the Ansible setup
 - [Otto Role Documentation](ansible/roles/otto/README.md) - Otto-specific role details
 - [IoT Common Role Documentation](ansible/roles/iot_common/README.md) - Common IoT device role
+- [Dev Machine Role Documentation](ansible/roles/dev_machine/README.md) - Development machine role
 
 ## Contributing
 

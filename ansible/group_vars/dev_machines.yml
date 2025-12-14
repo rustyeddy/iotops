@@ -1,0 +1,43 @@
+---
+# Group variables for development machines
+
+# Development machine type
+device_type: dev_machine
+
+# Install all development tools by default
+dev_install_languages: yes
+dev_install_containers: yes
+dev_install_databases: yes
+dev_install_pip_packages: yes
+dev_install_npm_packages: yes
+
+# Configure development environment
+dev_configure_git: yes
+dev_configure_shell: yes
+
+# Custom git configuration for dev machines
+dev_git_config:
+  - name: user.name
+    value: "Rusty Eddy"
+  - name: user.email
+    value: "rusty@rustyeddy.com"
+  - name: core.editor
+    value: vim
+  - name: color.ui
+    value: auto
+
+# Note: To ADD packages to the defaults, use the lists below.
+# These will be combined with the role defaults.
+# To completely REPLACE defaults, redefine the variables (not recommended).
+
+# Example: Additional custom packages (added to role defaults)
+# dev_packages:
+#   - custom-package
+
+# Example: Additional Python packages (added to role defaults)
+# dev_pip_packages:
+#   - custom-python-package
+
+# Example: Additional Node.js packages (added to role defaults)
+# dev_npm_packages:
+#   - custom-npm-package
