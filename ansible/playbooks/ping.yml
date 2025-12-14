@@ -5,6 +5,7 @@
 - name: Ping all IoT devices
   hosts: all
   gather_facts: no
+  become: false
 
   tasks:
     - name: Ping devices
