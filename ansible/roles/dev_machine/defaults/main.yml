@@ -62,12 +62,24 @@ dev_container_packages:
 
 # Database client packages
 dev_install_databases: yes
+
+# Cross-platform database tools
 dev_database_packages:
   - sqlite3
-  # Uncomment database clients as needed:
-  # - postgresql-client  # For Debian/Ubuntu use postgresql-client, for RHEL/Fedora use postgresql
-  # - mysql-client       # For Debian/Ubuntu use mysql-client, for RHEL/Fedora use mysql
-  # - redis-tools        # For Debian/Ubuntu use redis-tools, for RHEL/Fedora use redis
+
+# Ubuntu/Debian specific database clients
+debian_database_packages: []
+  # Uncomment as needed:
+  # - postgresql-client
+  # - mysql-client
+  # - redis-tools
+
+# Fedora/RHEL specific database clients
+rhel_database_packages: []
+  # Uncomment as needed:
+  # - postgresql
+  # - mysql
+  # - redis
 
 # Python packages to install globally
 dev_install_pip_packages: yes

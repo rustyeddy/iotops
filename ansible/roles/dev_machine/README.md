@@ -82,12 +82,22 @@ dev_container_packages:
 
 ```yaml
 dev_install_databases: yes
+
+# Cross-platform database tools
 dev_database_packages:
   - sqlite3
-  # Add database clients as needed (package names vary by OS):
-  # - postgresql-client  # PostgreSQL client
-  # - mysql-client       # MySQL client
-  # - redis-tools        # Redis CLI tools
+
+# Ubuntu/Debian specific database clients
+debian_database_packages: []
+  # - postgresql-client
+  # - mysql-client
+  # - redis-tools
+
+# Fedora/RHEL specific database clients
+rhel_database_packages: []
+  # - postgresql
+  # - mysql
+  # - redis
 ```
 
 ### Python Packages

@@ -61,11 +61,29 @@
     - containers
   ignore_errors: yes
 
-- name: Install database clients
+- name: Install database clients (cross-platform)
   package:
     name: "{{ dev_database_packages }}"
     state: present
   when: dev_install_databases | bool
+  tags:
+    - dev
+    - databases
+
+- name: Install Ubuntu/Debian database clients
+  package:
+    name: "{{ debian_database_packages }}"
+    state: present
+  when: dev_install_databases | bool and ansible_os_family == 'Debian' and debian_database_packages | length > 0
+  tags:
+    - dev
+    - databases
+
+- name: Install Fedora/RHEL database clients
+  package:
+    name: "{{ rhel_database_packages }}"
+    state: present
+  when: dev_install_databases | bool and ansible_os_family == 'RedHat' and rhel_database_packages | length > 0
   tags:
     - dev
     - databases
