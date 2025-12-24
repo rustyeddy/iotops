@@ -1,0 +1,5 @@
+---
+target_user: otto
+autostart_src: "autostart"
+autostart_dst: "/home/otto/.config/labwc/autostart"
+

@@ -1,0 +1,72 @@
+---
+# Main tasks file for kiosk role
+
+# - name: Include OS-specific variables
+#   include_vars: "{{ ansible_os_family }}.yml"
+#   ignore_errors: yes
+#   tags: otto
+
+- name: Create Otto user
+  user:
+    name: "{{ target_user }}"
+    group: "{{ target_user }}"
+    shell: /bin/bash
+    create_home: yes
+    state: present
+  tags: kiosk
+
+- name: Install system packages
+  package:
+    name: 
+      - lnav
+      - wtype
+    state: present
+  tags: kiosk
+
+- name: Ensure the target user exists (optional, but good practice)
+  ansible.builtin.user:
+    name: "{{ target_user }}"
+    state: present
+    create_home: true # Ensure home directory is created if user is new
+  register: user_info
+  # Use check_mode: true here if you only want to check existence without creating/modifying
+  # But for this task, you usually want to ensure they exist.
+
+- name: Copy the autostart file to the user's home directory
+  ansible.builtin.copy:
+    src: "{{ autostart_src }}"
+    dest: "~{{ target_user }}/{{ autostart_dst }}" # Use ~username shorthand
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: '0644' # Set appropriate permissions
+
+- name: Copy the file to the user's home directory
+  ansible.builtin.copy:
+    src: switchtab.sh
+    dest: "~{{ target_user }}/switchtab.sh" # Use ~username shorthand
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: '0755' # Set appropriate permissions
+
+- name: Ensure the systemd drop-in directory exists
+  ansible.builtin.file:
+    path: "/etc/systemd/system/getty@tty1.service.d"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create autologin configuration file
+  ansible.builtin.copy:
+    dest: "/etc/systemd/system/getty@tty1.service.d/autologin.conf"
+    content: |
+      [Service]
+      ExecStart=
+      ExecStart=-/sbin/agetty --autologin otto --noclear %I $TERM
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Reload systemd daemon
+    - Restart getty@tty1 service
+

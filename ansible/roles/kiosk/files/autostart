@@ -1,0 +1,2 @@
+chromium https://raspberrypi.com https://time.is/London --kiosk --noerrdialogs --disable-infobars --no-first-run --enable-features=OverlayScrollbar --start-maximized &
+~/switchtab.sh

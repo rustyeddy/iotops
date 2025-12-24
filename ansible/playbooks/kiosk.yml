@@ -1,0 +1,28 @@
+---
+# Playbook for deploying and configuring Otto devices
+# Run: ansible-playbook playbooks/kiosk.yml
+
+- name: Deploy and Configure Touchscreen Devices
+  hosts: touchscreens
+  gather_facts: yes
+  become: yes
+
+  pre_tasks:
+    - name: Wait for system to become reachable
+      wait_for_connection:
+        timeout: 60
+      tags: always
+
+    - name: Gather facts
+      setup:
+      tags: always
+
+  roles:
+    - role: kiosk
+      tags: kiosk
+
+  post_tasks:
+    - name: Verify kiosk deployment
+      debug:
+        msg: "Kiowsk device {{ inventory_hostname }} has been configured successfully"
+      tags: always
